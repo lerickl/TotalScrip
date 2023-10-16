@@ -1,0 +1,54 @@
+@import './styles/normalize.css';
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background: linear-gradient(90deg, rgba(21, 62, 181, 1) 10%, rgba(72, 113, 235, 1)  100%);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+
+
+body {
+  width: 100vw;
+  font-size: 16px;
+  place-items: center;
+  flex-direction: column;
+}
+ 
+@media screen and (max-width: 768px) {
+  body {
+      font-size: 14px; /* Disminuye el tamaño base en pantallas más pequeñas */
+  }
+ 
+}
+footer {
+  display: flex;
+  position: relative;
+  height: 1.7rem;
+  padding: 1%;
+  
+  background: #213547;
+}
+
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
