@@ -1,0 +1,11 @@
+{
+  "service": "gmail",
+  "auth": {
+    "type": "OAuth2",
+    "user": "nearerick@gmail.com",
+    "clientId": "96644803199-on6h0j7832nmr430g9kfahusllml6sju.apps.googleusercontent.com",
+    "clientSecret":"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",
+    "refreshToken":"1//04oE4h4oDz6C-CgYIARAAGAQSNwF-L9IryIs75pe92Qft-DO_V8xOmKG9VOV1xHpccRDYEd-FEamyitk83ilCWPN-5qEN94O2yQo",
+    "accessToken": ""
+  }
+}

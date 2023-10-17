@@ -97,11 +97,14 @@
   flex-direction: column;
   place-items: center;
 }
- 
+.viewcardhelp hr{
+  margin-top: 4rem;
+}
 
 
 .cardpriceProdServ{
   background:rgba(208, 223, 253, 1);
+  
   color: #070201;
   border-radius: 10px;
   width: 90vw;
@@ -167,11 +170,12 @@
 }
 
 .modalCard {
-  background: rgba(1,1,1,0);
+  background: rgba(233, 230, 230, 0);
+  background: blur(5px);
   z-index: 1;
-  margin-top: 5rem;
+  margin-top: 6rem;
   border: none;
-  
+  backdrop-filter: blur(5px);
 }
 
 
@@ -407,6 +411,7 @@
   gap: .3rem;
   margin: 2vw;
   margin-top: 0;
+  margin-bottom: 4rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -416,8 +421,9 @@
  
 }
 .banerBeneficios h4{
-  font-size: 1.5rem;
-  margin: 1%
+  font-size: 1.5rem;   
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 .banerPreguntasFrecuentes{
@@ -433,6 +439,23 @@
   width: 80%; 
   align-self: center;
   display: inline-block;   
+}
+.banerPreguntasFrecuentes div{
+  margin-bottom: 4rem;
+}
+.custom-summary::before {
+  content: "▶"; /* Puedes usar otro icono o texto en lugar de "▶" si prefieres */
+  margin-left: -1.5rem; /* Ajusta el valor según tus necesidades */
+  position: absolute;
+}
+.banerPreguntasFrecuentes div details summary{
+  display: flex;
+  justify-content: left;
+  display:inline-flex;
+  font-weight: 600;
+  width: 90%;
+  line-height: 1.2;
+  text-align: left;
 }
 .banerPreguntasFrecuentes h5{
   
@@ -462,7 +485,8 @@
   font-weight: 800;
   padding: 1%;
 }
-.banerContact button{
+.banerContact a{
+  text-decoration: none;
   padding: 3%;
   font-size: 1.5rem;
   border: none;
@@ -473,10 +497,14 @@
   border-radius: 5px;
   background: linear-gradient(90deg, rgba(19,194,236,1) 0%, rgba(4,75,251,1) 100%);
 }
-.banerContact button:active{
+.banerContact a:active{
   background: white;
   color: black;
   
+  
+}
+.banerContact a:hover{
+  scale: 1.1;
 }
 .imgBeneficios{
   display: flex;
@@ -497,10 +525,32 @@
   text-align: center;
   line-height: 1.2;
   padding: 0.1rem;
+
   
 }
 
+footer {   
+  background: #0d1822;
+}
+footer div {   
+  padding: 2%;
+}
+footer div a{
+  background: #c5f0f3;
+  padding: 1%;
+  font-size: 1.5rem;
+  font-weight: 500;
+  border-radius: 50%;
+  margin-left: 1rem;
+}
+footer div a svg:hover{
+  scale: 1.1;
+}
+footer div a svg{
+  cursor: pointer;
+  transform: translateY(.3rem);
 
+}
 
 
 
@@ -627,4 +677,26 @@
   margin: 1%;
   justify-content: center;
    
+}
+
+.buttonComenzar {
+  margin-bottom: 2rem;
+  cursor: pointer;
+  padding: 3% 5%;
+  font-size: 1.5rem;
+  border-radius: 10px;  
+  margin-top: 1rem; 
+  color: white;
+  border:none; 
+   background: linear-gradient(90deg, rgba(19,194,236,1) 0%, rgba(4,75,251,1) 100%);
+}
+.buttonComenzar:active{
+   border: 1px solid #070201;
+   background: white;
+   color: black;
+
+}
+.buttonComenzar:hover{
+  scale: 1.1;
+
 }

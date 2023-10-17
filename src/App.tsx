@@ -1,8 +1,7 @@
 import './styles/homecss.css'
-import chatgpt from './apis/openai';
+import chatgpt from './apis/openai'
 import './App.css'
-import { Client } from "@sendgrid/client";
-import sgMail from '@sendgrid/mail'
+  
 import guionesImage from './sources/guion1.png'
 import hazluzImage from './sources/hazEnergia.png'
 import exitoImage from './sources/exito.png'
@@ -11,7 +10,8 @@ import logo from './sources/totalscript.png'
 import imageSelectTicket from './sources/imagenSelecticked.png'
 import imageCompleteForm from './sources/imagenCompleteForm.png'
 import imageDescargaGuion from './sources/imagenGuionDes.png'
-import { useState, ChangeEvent, FormEvent } from 'react'
+import { useState, ChangeEvent, FormEvent} from 'react'
+ 
 function App() {
   //const [query, setQuery] = useState('')
   const [recomendacion, setRecomendacion] = useState('')
@@ -24,7 +24,7 @@ function App() {
     quest3: '',
     quest4: '',
     quest5: '',
-    quest6: '',
+    
 
   })
   const [formTicket, setFormTicket] = useState<string>('');
@@ -39,7 +39,7 @@ function App() {
     quest3: string,
     quest4: string,
     quest5: string,
-    quest6: string,
+ 
   }
   
   const handleChangeTicket = (text:string) => { 
@@ -60,11 +60,10 @@ function App() {
     const txtinitial = "Con los datos de las siguientes preguntas, se creara un guion de ventas. enumera los dialogos \n\n"
     const text1 = "¿Qué producto o servicio estas ofreciendo?\n\n" + formData.quest1 + "\n\n"
     const text2 = "¿Describe brevemente tu producto o servicio?\n\n" + formData.quest2 + "\n\n"
-    const text3 = "¿Cual es el precio de tu producto o servicio?\n\n" + formData.quest3 + "\n\n"
-    const text4 = "¿Quién es tu publico objetivo?\n\n" + formData.quest4 + "\n\n"
-    const text5 = "¿Qué oferta especial puedes proporcionar?\n\n" + formData.quest5 + "\n\n"
-    const text6 = "Escribe el nombre de tu empresa\n\n" + formData.quest6 + "\n\n"
-    const promtFinal = txtinitial + text1 + text2 + text3 + text4 + text5 + text6
+    const text3 = "¿Cual es el precio de tu producto o servicio?\n\n" + formData.quest3 + "\n\n"     
+    const text4 = "¿Qué oferta especial puedes proporcionar?\n\n" + formData.quest4 + "\n\n"
+    const text5= "Escribe el nombre de tu empresa\n\n" + formData.quest5 + "\n\n"
+    const promtFinal = txtinitial + text1 + text2 + text3 + text4 + text5 
     return promtFinal
   }
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -110,29 +109,14 @@ function App() {
       console.error('No se pudo copiar al portapapeles: ', err)
     }) 
   } 
+
   const sendMail = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     // Test setClient() method
-    sgMail.setClient(new Client());
-    sgMail.setApiKey(import.meta.env.VITE_SENDGRID_API_KEY)
-    sgMail.setSubstitutionWrappers("{{", "}}")
-    const msg = {
-      to: 'nearerick@gmail.com', // Change to your recipient
-      from: 'nearerick@gmail.com', // Change to your verified sender
-      subject: 'Sending with SendGrid is Fun',
-      text: email,
-      html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-    }
-    sgMail
-    .send(msg)
-    .then(() => {}, error => {
-      console.log(error) 
-  
-      if (error.response) {
-        console.log(error.response.body)
-      }
-    })
+      
      
+   
+    
   }
   const handlechangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
@@ -202,21 +186,16 @@ function App() {
                 <label htmlFor='quest3'><span>3</span>¿Cual es el precio de tu producto o servicio?</label>
                 <textarea required name='quest3' value={formData.quest3} onChange={handleChange} id='quest3' placeholder='Ejemplo: 300USD'></textarea>
               
-              </div>
-              <div>
-                <label htmlFor='quest4'><span>4</span>¿Quién es tu publico objetivo?</label>
-                <textarea required name='quest4' value={formData.quest4} onChange={handleChange} id='quest4' placeholder='Ejemplo: Aumento en sus ventas por la buena gestion de marketing'></textarea>
-              
-              </div>
+              </div>             
             
               <div>
-                <label htmlFor='quest5'><span>5</span>¿Qué oferta especial puedes proporcionar?</label>
-                <textarea required name='quest5' value={formData.quest5} onChange={handleChange} id='quest5' placeholder='Ejemplo: 10% de descuento por el mes de Octubre'></textarea>
+                <label htmlFor='quest4'><span>4</span>¿Qué oferta especial puedes proporcionar?</label>
+                <textarea required name='quest4' value={formData.quest4} onChange={handleChange} id='quest4' placeholder='Ejemplo: 10% de descuento por el mes de Octubre'></textarea>
                 
               </div>
               <div>
-                <label htmlFor='quest6'><span>6</span>Escribe el nombre de tu empresa</label>
-                <textarea required name='quest6' value={formData.quest6} onChange={handleChange} id='quest6' placeholder='Ejemplo: Belcan Enterprice'></textarea>
+                <label htmlFor='quest5'><span>5</span>Escribe el nombre de tu empresa</label>
+                <textarea required name='quest5' value={formData.quest5} onChange={handleChange} id='quest5' placeholder='Ejemplo: Belcan Enterprice'></textarea>
                 
               </div> 
               
@@ -273,7 +252,7 @@ function App() {
                   ))}
                 </div>
               ))}
-           
+            
             </div>
           </section>
           }
@@ -317,6 +296,7 @@ function App() {
             </div>
 
           </div>
+          <button className='buttonComenzar' type="button" onClick={abrirDialog}> Comenzar </button>
         </section>
  
        
@@ -357,14 +337,22 @@ function App() {
             <h4>
               PREGUNTAS MÁS FRECUENTES
             </h4>
-            <div>
-              <h5>¿Se puede usar TotalScript para crear guiones de venta para diferentes industrias y productos?</h5>
+              <details >
+                <summary className='custom-summary'>¿Se puede usar TotalScript para crear guiones de venta para diferentes industrias y productos?</summary>
+                <p>Así es, puedes usar TotalScript para diferentes industrias. Desde productos/servicios de 0 a más de 1000 USD </p>
+              </details>
               <hr />
-              <h5>¿TotalScript es gratuito?</h5>
+              <details >
+                <summary className='custom-summary'>¿TotalScript es gratuito?</summary>
+                <p>Por el momento sí. Aún estamos en nuestra versión beta. Así que puedes aprovechar al máximo esta versión gratuita.</p>
+              </details>
               <hr />
-              <h5>¿Por qué debo usar un guion de ventas?</h5>
-              <hr />
-            </div>
+              <details >
+                <summary className='custom-summary'>¿Por qué debo usar un guion de ventas?</summary>
+                <p>
+                Tener un script o guion de ventas te permite tener un sistema profesional dentro de tu negocio. Lo cual te ayudará a tener ventas estables durante todo el año.
+                </p>
+              </details>
           </div>
         </section>
         <section className='banerContact'>
@@ -374,15 +362,43 @@ function App() {
           <h3>
             Ponte en contacto con nuestro equipo de ventas
           </h3>
-          <img alt='image' src={banerfinal} />
-          <button>Contactar</button>
+              <img alt='image' src={banerfinal} />
+              <a href="https://wa.me/+51900239201/?text=Hola hugo, vengo de TotalScript. Me interesa un entrenamiento de Ventas" target="_blank" rel="noopener">Contactar</a>
         </section>
-      </main>
-      <footer>
-        copiright 2023 TotalScript - Todos los derechos reservados  
-      </footer>
-    </>
-  )
-}
+            </main>
+            <footer>
+              <div>
+                <a href="https://www.facebook.com/hugoherreracoach" target="_blank" rel="noopener">
+                <svg width="30" height="30" viewBox="0 0 50 50">
+                    <path d="M25,3C12.85,3,3,12.85,3,25c0,11.03,8.125,20.137,18.712,21.728V30.831h-5.443v-5.783h5.443v-3.848 c0-6.371,3.104-9.168,8.399-9.168c2.536,0,3.877,0.188,4.512,0.274v5.048h-3.612c-2.248,0-3.033,2.131-3.033,4.533v3.161h6.588 l-0.894,5.783h-5.694v15.944C38.716,45.318,47,36.137,47,25C47,12.85,37.15,3,25,3z"></path>
+                </svg>
+                </a>
+                <a href="https://instagram.com/hugoherreracoach" target="_blank" rel="noopener">
+                <svg   width="30" height="30" viewBox="0 0 30 30">
+                    <path d="M 9.9980469 3 C 6.1390469 3 3 6.1419531 3 10.001953 L 3 20.001953 C 3 23.860953 6.1419531 27 10.001953 27 L 20.001953 27 C 23.860953 27 27 23.858047 27 19.998047 L 27 9.9980469 C 27 6.1390469 23.858047 3 19.998047 3 L 9.9980469 3 z M 22 7 C 22.552 7 23 7.448 23 8 C 23 8.552 22.552 9 22 9 C 21.448 9 21 8.552 21 8 C 21 7.448 21.448 7 22 7 z M 15 9 C 18.309 9 21 11.691 21 15 C 21 18.309 18.309 21 15 21 C 11.691 21 9 18.309 9 15 C 9 11.691 11.691 9 15 9 z M 15 11 A 4 4 0 0 0 11 15 A 4 4 0 0 0 15 19 A 4 4 0 0 0 19 15 A 4 4 0 0 0 15 11 z"></path>
+                </svg>
+                </a>
+                <a href="https://wa.me/+51900239201/?text=Hola hugo, vengo de TotalScript" target="_blank" rel="noopener">
+                <svg  width="30" height="30" viewBox="0 0 30 30">
+                    <path d="M 15 3 C 8.373 3 3 8.373 3 15 C 3 17.251208 3.6323415 19.350068 4.7109375 21.150391 L 3.1074219 27 L 9.0820312 25.431641 C 10.829354 26.425062 12.84649 27 15 27 C 21.627 27 27 21.627 27 15 C 27 8.373 21.627 3 15 3 z M 10.892578 9.4023438 C 11.087578 9.4023438 11.287937 9.4011562 11.460938 9.4101562 C 11.674938 9.4151563 11.907859 9.4308281 12.130859 9.9238281 C 12.395859 10.509828 12.972875 11.979906 13.046875 12.128906 C 13.120875 12.277906 13.173313 12.453437 13.070312 12.648438 C 12.972312 12.848437 12.921344 12.969484 12.777344 13.146484 C 12.628344 13.318484 12.465078 13.532109 12.330078 13.662109 C 12.181078 13.811109 12.027219 13.974484 12.199219 14.271484 C 12.371219 14.568484 12.968563 15.542125 13.851562 16.328125 C 14.986562 17.342125 15.944188 17.653734 16.242188 17.802734 C 16.540187 17.951734 16.712766 17.928516 16.884766 17.728516 C 17.061766 17.533516 17.628125 16.864406 17.828125 16.566406 C 18.023125 16.268406 18.222188 16.319969 18.492188 16.417969 C 18.766188 16.515969 20.227391 17.235766 20.525391 17.384766 C 20.823391 17.533766 21.01875 17.607516 21.09375 17.728516 C 21.17075 17.853516 21.170828 18.448578 20.923828 19.142578 C 20.676828 19.835578 19.463922 20.505734 18.919922 20.552734 C 18.370922 20.603734 17.858562 20.7995 15.351562 19.8125 C 12.327563 18.6215 10.420484 15.524219 10.271484 15.324219 C 10.122484 15.129219 9.0605469 13.713906 9.0605469 12.253906 C 9.0605469 10.788906 9.8286563 10.071437 10.097656 9.7734375 C 10.371656 9.4754375 10.692578 9.4023438 10.892578 9.4023438 z"></path>
+                </svg>
+                </a>
+                <a  href="https://www.tiktok.com/@hugoherreracoach" target="_blank" rel="noopener">
+                <svg  width="30" height="30" viewBox="0 0 30 30">
+                    <path d="M24,4H6C4.895,4,4,4.895,4,6v18c0,1.105,0.895,2,2,2h18c1.105,0,2-0.895,2-2V6C26,4.895,25.104,4,24,4z M22.689,13.474 c-0.13,0.012-0.261,0.02-0.393,0.02c-1.495,0-2.809-0.768-3.574-1.931c0,3.049,0,6.519,0,6.577c0,2.685-2.177,4.861-4.861,4.861 C11.177,23,9,20.823,9,18.139c0-2.685,2.177-4.861,4.861-4.861c0.102,0,0.201,0.009,0.3,0.015v2.396c-0.1-0.012-0.197-0.03-0.3-0.03 c-1.37,0-2.481,1.111-2.481,2.481s1.11,2.481,2.481,2.481c1.371,0,2.581-1.08,2.581-2.45c0-0.055,0.024-11.17,0.024-11.17h2.289 c0.215,2.047,1.868,3.663,3.934,3.811V13.474z"></path>
+                </svg>
+                </a>
+                <a>
+                <svg   width="30" height="30" viewBox="0 0 30 30">
+                    <path d="M 15 4 C 10.814 4 5.3808594 5.0488281 5.3808594 5.0488281 L 5.3671875 5.0644531 C 3.4606632 5.3693645 2 7.0076245 2 9 L 2 15 L 2 15.001953 L 2 21 L 2 21.001953 A 4 4 0 0 0 5.3769531 24.945312 L 5.3808594 24.951172 C 5.3808594 24.951172 10.814 26.001953 15 26.001953 C 19.186 26.001953 24.619141 24.951172 24.619141 24.951172 L 24.621094 24.949219 A 4 4 0 0 0 28 21.001953 L 28 21 L 28 15.001953 L 28 15 L 28 9 A 4 4 0 0 0 24.623047 5.0546875 L 24.619141 5.0488281 C 24.619141 5.0488281 19.186 4 15 4 z M 12 10.398438 L 20 15 L 12 19.601562 L 12 10.398438 z"></path>
+                </svg>
+                </a>
+              </div>
+              
+              Copyright 2023 TotalScript - Todos los derechos reservados  
+            </footer>
+          </>
+        )
+      }
 
 export default App
