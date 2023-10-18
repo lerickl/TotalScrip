@@ -1,7 +1,7 @@
 import './styles/homecss.css'
 import chatgpt from './apis/openai'
 import './App.css'
-  
+import ViewResponseGpt from './components/viewResponse'
 import guionesImage from './sources/guion1.png'
 import hazluzImage from './sources/hazEnergia.png'
 import exitoImage from './sources/exito.png'
@@ -46,24 +46,24 @@ function App() {
     handleChangeInicio()
     setFormTicket(text)
     if(text === 'Low'){
-      setRecomendacion('vender por Whatsapp')
+      setRecomendacion(' por Whatsapp')
     }
     if(text === 'Middle'){
-      setRecomendacion('Vender por Telefono')
+      setRecomendacion(' por Telefono')
     }
     if(text === 'High'){
-      setRecomendacion('Vender en Persona')
+      setRecomendacion(' en Persona')
     }
     cerrarDialog()
   }
   const crearPromt = (formData: FormData) => {
-    const txtinitial = "Con los datos de las siguientes preguntas, se creara un guion de ventas. enumera los dialogos \n\n"
-    const text1 = "¿Qué producto o servicio estas ofreciendo?\n\n" + formData.quest1 + "\n\n"
-    const text2 = "¿Describe brevemente tu producto o servicio?\n\n" + formData.quest2 + "\n\n"
-    const text3 = "¿Cual es el precio de tu producto o servicio?\n\n" + formData.quest3 + "\n\n"     
-    const text4 = "¿Qué oferta especial puedes proporcionar?\n\n" + formData.quest4 + "\n\n"
-    const text5= "Escribe el nombre de tu empresa\n\n" + formData.quest5 + "\n\n"
-    const promtFinal = txtinitial + text1 + text2 + text3 + text4 + text5 
+    const txtinitial = "con los datos siguientes, crea un guion de ventas para vender "+ recomendacion+ ". enumera los dialogos \n\n"
+    const text1 = "se ofrese el siguiente, producto o servicio \n\n" + formData.quest1 + "\n\n" 
+    const text3 = "con un precio de \n\n" + formData.quest3 + "\n\n"     
+    const text4 = "tenemos la siguiente oferta n\n" + formData.quest4 + "\n\n"
+    const text5= "nuestra empresa es\n\n" + formData.quest5 + "\n\n"
+    const promtFinal = txtinitial + text1  + text3 + text4 + text5 
+    console.log(promtFinal)
     return promtFinal
   }
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -71,13 +71,14 @@ function App() {
 
     setIsLoading(true)
     const query = crearPromt(formData)
-   
+    
     const response = new chatgpt()
 
     const respuesta = await response.hangleMessage(query)
-    console.log(respuesta)
-    console.log(typeof(respuesta))
+    
+   
     setIsLoading(false)
+     
     setRespuesta(respuesta as string)
   }
   const [inicio, setInicio] = useState(true)
@@ -145,7 +146,7 @@ function App() {
             </div>
             <div  onClick={()=>handleChangeTicket('High')}>
               <h4>High Ticket</h4>
-              <p>+5000USD</p>
+              <p>+500USD</p>
             </div>
             <section>
               <a  onClick={cerrarDialog}> {"< Volver"}</a>
@@ -246,7 +247,14 @@ function App() {
               </div>
               {respuesta && respuesta.split(/Diálogo \d+: /).filter(Boolean).map((dialogo, index) => (
                 <div key={index}>
-                  <p>Diálogo {index + 1}:</p>
+                  <div className='initResponse'> 
+                    <strong>Se recomienda Vender {recomendacion}</strong>
+                    <strong>Objetivo del script: Vender un producto {recomendacion}</strong>
+                    <strong>Descripcion: se hace un primer contacto {recomendacion} usando el siguiente libreto</strong>
+                    <strong></strong>
+                  </div>
+                  
+                       
                   {dialogo.split('\n').map((linea, lineaIndex) => (
                     <p key={lineaIndex}>{linea}</p>
                   ))}
@@ -364,6 +372,9 @@ function App() {
           </h3>
               <img alt='image' src={banerfinal} />
               <a href="https://wa.me/+51900239201/?text=Hola hugo, vengo de TotalScript. Me interesa un entrenamiento de Ventas" target="_blank" rel="noopener">Contactar</a>
+        </section>
+        <section>
+        <ViewResponseGpt/>
         </section>
             </main>
             <footer>
