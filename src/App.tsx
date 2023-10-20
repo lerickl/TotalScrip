@@ -1,6 +1,6 @@
 import './styles/homecss.css'
 import chatgpt from './apis/openai'
-import './App.css'
+import './styles/App.css'
 import ViewResponseGpt from './components/viewResponse'
 import guionesImage from './sources/guion1.png'
 import hazluzImage from './sources/hazEnergia.png'
@@ -18,21 +18,30 @@ function App() {
   const [respuesta, setRespuesta] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [email, setEmail] = useState('')
+  const [isContentVisible, setIsContentVisible] = useState(true)
   const [formData, setFormData] = useState({
     quest1: '',
     quest2: '',
     quest3: '',
     quest4: '',
-    quest5: '',
-    
-
+    quest5: '',   
   })
   const [formTicket, setFormTicket] = useState<string>('');
-  
+  const toggleContentVisibility = () => {
+    setIsContentVisible(!isContentVisible);
+  }
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = event.target
     setFormData({ ...formData, [name]: value as string })
-  };
+  }
+  const handleChangePrice = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+
+    // Validar que el valor ingresado sean solo números
+    if (/^\d*$/.test(value)) {
+      setFormData({ ...formData, [name]: value });
+    }
+  }
   type FormData = {
     quest1: string,
     quest2: string,
@@ -55,15 +64,18 @@ function App() {
       setRecomendacion(' en Persona')
     }
     cerrarDialog()
+    if(isContentVisible==true){
+      toggleContentVisibility()
+    }
   }
   const crearPromt = (formData: FormData) => {
     const txtinitial = "con los datos siguientes, crea un guion de ventas para vender "+ recomendacion+ ". enumera los dialogos \n\n"
     const text1 = "se ofrese el siguiente, producto o servicio \n\n" + formData.quest1 + "\n\n" 
     const text3 = "con un precio de \n\n" + formData.quest3 + "\n\n"     
-    const text4 = "tenemos la siguiente oferta n\n" + formData.quest4 + "\n\n"
+    const text4 = "tenemos la siguiente oferta \n" + formData.quest4 + "\n\n"
     const text5= "nuestra empresa es\n\n" + formData.quest5 + "\n\n"
     const promtFinal = txtinitial + text1  + text3 + text4 + text5 
-    console.log(promtFinal)
+  
     return promtFinal
   }
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -185,7 +197,7 @@ function App() {
               </div>
               <div>
                 <label htmlFor='quest3'><span>3</span>¿Cual es el precio de tu producto o servicio?</label>
-                <textarea required name='quest3' value={formData.quest3} onChange={handleChange} id='quest3' placeholder='Ejemplo: 300USD'></textarea>
+                <textarea required name='quest3' value={formData.quest3} onChange={handleChangePrice} id='quest3' placeholder='Ejemplo: 300USD'></textarea>
               
               </div>             
             
@@ -203,16 +215,18 @@ function App() {
               <button>Crear Guion</button>
             </form>
           </section>
+          
           {isLoading?
           <section className='loading' >
-          <div>
-            <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-            </ul>              
+          <p >creando guion porfavor espera unos segundos....</p>
+           
+          <div id="container">
+              
+            <div >
+              <span ></span>
+             
+            </div>
           </div>
-          <p>cargando...</p>
           </section>:
           <section className='responseChatGpt'   >
             <div  >
@@ -269,46 +283,48 @@ function App() {
         
         )}
         
+        {isContentVisible?
         <section className='viewcardhelp'>
-          <hr></hr>
-          <img alt='image' src={imageSelectTicket} />
-          <div className='group'>
-            <div className='option'>
-              <p>1</p>
-              <div className='subtitle' >
-                <h3>Selecciona el ticket de tu producto o servicio</h3>
-                <h4>Elige cual es el valor promedio de lo que vendes </h4>
-              </div>
+        <hr></hr>
+        <img alt='image' src={imageSelectTicket} />
+        <div className='group'>
+          <div className='option'>
+            <p>1</p>
+            <div className='subtitle' >
+              <h3>Selecciona el ticket de tu producto o servicio</h3>
+              <h4>Elige cual es el valor promedio de lo que vendes </h4>
             </div>
-
           </div>
-          <img alt='image' src={imageCompleteForm} />
-          <div className='group'>
-            <div className='option'>
-              <p>2</p>
-              <div className='subtitle' >
-                <h3>Completa el formulario</h3>
-                <h4>Responde algunas preguntas clave diseñadas para personalizar tu guión de ventas ganador. </h4>
-              </div>
+
+        </div>
+        <img alt='image' src={imageCompleteForm} />
+        <div className='group'>
+          <div className='option'>
+            <p>2</p>
+            <div className='subtitle' >
+              <h3>Completa el formulario</h3>
+              <h4>Responde algunas preguntas clave diseñadas para personalizar tu guión de ventas ganador. </h4>
             </div>
-
           </div>
-          <img alt='image' src={imageDescargaGuion} />
-          <div className='group'>
-            <div className='option'>
-              <p>3</p>
-              <div className='subtitle' >
-                <h3>Descarga tu Guión</h3>
-                <h4>Descarga gratuitamente el guión creado especialmente para ti. </h4>
-              </div>
+
+        </div>
+        <img alt='image' src={imageDescargaGuion} />
+        <div className='group'>
+          <div className='option'>
+            <p>3</p>
+            <div className='subtitle' >
+              <h3>Descarga tu Guión</h3>
+              <h4>Descarga gratuitamente el guión creado especialmente para ti. </h4>
             </div>
-
           </div>
-          <button className='buttonComenzar' type="button" onClick={abrirDialog}> Comenzar </button>
-        </section>
- 
-       
-        <section className='banerBeneficios' >
+
+        </div>
+        <button className='buttonComenzar' type="button" onClick={abrirDialog}> Comenzar </button>
+      </section>
+      
+      :null}
+      {isContentVisible? 
+      <section  className='banerBeneficios' >
           <h4  >BENEFICIOS DE USAR TOTALSCRIPT</h4>
           <div>
             <section className='imgBeneficios'>
@@ -324,45 +340,50 @@ function App() {
               <a>Estrategias Comprobadas</a>
             </section>
           </div>
-        </section>
-        <section className='banersuscripcion'>
-          <div>
-            <form onSubmit={sendMail}>
-              <h1>
-                
-                ¡RECIBE LAS NUEVAS ACTUALIZACIONES DE TotalScript!
-              </h1>
-              <label htmlFor='in'></label>
-              <input placeholder='Ingresa tu Email' id='in' type='text' value={email} onChange={handlechangeEmail} ></input>
-              <button type='submit' >
-                Suscribirme 
-              </button>
-            </form>
-          </div>
-        </section>
-        <section className='banerPreguntasFrecuentes'>
-          <div>
-            <h4>
-              PREGUNTAS MÁS FRECUENTES
-            </h4>
-              <details >
-                <summary className='custom-summary'>¿Se puede usar TotalScript para crear guiones de venta para diferentes industrias y productos?</summary>
-                <p>Así es, puedes usar TotalScript para diferentes industrias. Desde productos/servicios de 0 a más de 1000 USD </p>
-              </details>
-              <hr />
-              <details >
-                <summary className='custom-summary'>¿TotalScript es gratuito?</summary>
-                <p>Por el momento sí. Aún estamos en nuestra versión beta. Así que puedes aprovechar al máximo esta versión gratuita.</p>
-              </details>
-              <hr />
-              <details >
-                <summary className='custom-summary'>¿Por qué debo usar un guion de ventas?</summary>
-                <p>
-                Tener un script o guion de ventas te permite tener un sistema profesional dentro de tu negocio. Lo cual te ayudará a tener ventas estables durante todo el año.
-                </p>
-              </details>
-          </div>
-        </section>
+        </section>:null}
+        
+        {isContentVisible?
+        <section  className='banersuscripcion'>
+        <div>
+          <form onSubmit={sendMail}>
+            <h1>
+              
+              ¡RECIBE LAS NUEVAS ACTUALIZACIONES DE TotalScript!
+            </h1>
+            <label htmlFor='in'></label>
+            <input placeholder='Ingresa tu Email' id='in' type='text' value={email} onChange={handlechangeEmail} ></input>
+            <button type='submit' >
+              Suscribirme 
+            </button>
+          </form>
+        </div>
+      </section>:null}
+        {isContentVisible?
+         <section className='banerPreguntasFrecuentes'>
+         <div>
+           <h4>
+             PREGUNTAS MÁS FRECUENTES
+           </h4>
+             <details >
+               <summary className='custom-summary'>¿Se puede usar TotalScript para crear guiones de venta para diferentes industrias y productos?</summary>
+               <p>Así es, puedes usar TotalScript para diferentes industrias. Desde productos/servicios de 0 a más de 1000 USD </p>
+             </details>
+             <hr />
+             <details >
+               <summary className='custom-summary'>¿TotalScript es gratuito?</summary>
+               <p>Por el momento sí. Aún estamos en nuestra versión beta. Así que puedes aprovechar al máximo esta versión gratuita.</p>
+             </details>
+             <hr />
+             <details >
+               <summary className='custom-summary'>¿Por qué debo usar un guion de ventas?</summary>
+               <p>
+               Tener un script o guion de ventas te permite tener un sistema profesional dentro de tu negocio. Lo cual te ayudará a tener ventas estables durante todo el año.
+               </p>
+             </details>
+         </div>
+       </section>:null}
+
+       
         <section className='banerContact'>
           <h4>
             ¿QUIERES UN ENTRENAMIENTO EN VENTAS?
