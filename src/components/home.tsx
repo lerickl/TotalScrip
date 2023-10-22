@@ -88,13 +88,44 @@ export default function Home() {
     return xadata
   }
   const crearPromt = (formData: FormData) => {
+    let textguia=''
+    if (recomendacion === ' por Whatsapp') {
+      textguia = "Cliente: Hola, más información."+ 
+      "Asesor: Hola 😊, te saluda Hugo Herrera, asesor de [Empresa] ¿Cuál es tu nombre?"+
+      "Cliente: Juan"+
+      "Asesor: Mucho gusto Juan 😊. Este producto tiene [beneficio], y su precio es [Precio]"+
+      "(imagen/video del producto)"+
+      "¿Cuántas unidades deseas? para comentarte nuestra promoción🎁"+
+      "Cliente: Sólo una"+
+      "Asesor: Perfecto, la promoción consiste en [Promoción]"+
+      "¿Te gustaría aprovechar esta promoción? 🤩"+
+      "Cliente: Sí"+
+      "Asesor: Bien, aceptamos métodos de pago como:"+
+      " 1️⃣ Tarjeta de crédito 💳"+
+      " 2️⃣ Transferencia bancaria"+
+      "¿Cuál opción sería más sencilla para ti?"+
+      "Cliente: Tarjeta de crédito"+
+      "Asesor: Ok, aquí te envío el link del pago: (link) 🔗"+
+      "Los próximos pasos serían que me envíes:"+
+      "✔️Captura de pantalla del pago"+
+      "✔️Nombre completo"+
+      "✔️Dirección de entrega´"
+    }
+    if (recomendacion === ' por Telefono'){
+      textguia="Asesor: Hola ¿Con Juan? Cliente: Sí, él habla Asesor: ¡Mucho gusto Juan! te saluda Hugo Herrera, asesor de [Empresa] ¿Cómo estás? Cliente: bien Asesor: ¡Genial! Si lo recuerdas, nos dejaste tus datos en un formulario, interesado en [Producto] ¿Te suena? Cliente: Sí, lo recuerdo Asesor: Perfecto, la razón de mi llamada es para brindarte la información ¿Tienes un minuto? Cliente: Sí, claro Asesor: Bien, el nombre de nuestra compañía es [Empresa] y ya tiene más de 3 años de experiencia en el mercado. Nuestro producto consiste en [Descripción] Cuéntame Juan: Asesor: ¿Qué características buscas en este producto? Cliente: me interesan a y b características del producto Asesor: Ok ¿Qué resultado te gustaría ver si usas este producto? Cliente: me gustaría ver n resultado Asesor: Bien. Y ¿Cuál es tu presupuesto aproximado para este producto? Cliente: Mi presupuesto es de n dólares Asesor: Genial, este producto se adapta perfectamente a lo que buscas. Te ayudará en [beneficio 1], además podrás [beneficio 2], y conseguirás [beneficio 3] ¿Tienes alguna duda que no haya resuelto? Cliente: Sí/ ¿Cuál es el precio? / ¿Dónde están ubicados? Asesor (si hay dudas resolverlas y continuar con el guion): Ok, te comento que el precio de este producto es de [Precio], pero esta semana estamos en promoción, la promoción consiste en [Promoción] ¿Qué te parece? Cliente: Buena Asesor: ¿Te gustaría aprovechar esta promoción? Cliente: Sí Asesor: Genial. El próximo paso sería hacer el pago y así aprovechas la promoción. Aceptamos métodos de pago como tarjeta de crédito y transferencia bancaria ¿Cuál es más sencillo para ti? Cliente: tarjeta de crédito Asesor: Bien, te estoy enviando los datos del pago a tu Whatsapp."
+
+    }
+    if(recomendacion === ' en Persona'){
+      textguia="Asesor: Hola ¿Con Juan? Cliente: Sí, él habla Asesor: ¡Mucho gusto Juan! te saluda Hugo Herrera, asesor de [Empresa] ¿Cómo estás? Cliente: bien Asesor: ¡Genial! Si lo recuerdas, nos dejaste tus datos en un formulario, interesado en [Producto] ¿Te suena? Cliente: Sí, lo recuerdo Asesor: Perfecto, la razón de mi llamada es para brindarte la información ¿Tienes un minuto? Cliente: Sí, claro Asesor: Bien, el nombre de nuestra compañía es [Empresa] y ya tiene más de 3 años de experiencia en el mercado. Nuestro producto consiste en [Descripción] Cuéntame Juan: Asesor: ¿Qué características buscas en este producto? Cliente: me interesan a y b características del producto Asesor: Ok ¿Qué resultado te gustaría ver si usas este producto? Cliente: me gustaría ver n resultado Asesor: Bien. Y ¿Cuál es tu presupuesto aproximado para este producto? Cliente: Mi presupuesto es de n dólares Asesor: Genial, este producto se adapta perfectamente a lo que buscas. Te ayudará en [beneficio 1], además podrás [beneficio 2], y conseguirás [beneficio 3] ¿Tienes alguna duda que no haya resuelto? Cliente: Sí/ ¿Cuál es el precio? / ¿Dónde están ubicados? Asesor (si hay dudas resolverlas y continuar con el guion): Ok, te comento que el precio de este producto es de [Precio], pero esta semana estamos en promoción, la promoción consiste en [Promoción] Entonces ¿Te parece bien si agendamos una videollamada de 20min, donde pueda explicarte todos los beneficios del producto, con imágenes? Cliente: Claro"
+
+    }
     const txtinitial = "necesito ayuda para vender "+ recomendacion+  ". usa dialogos. \n\n"
     const text1 = ", el producto o servicio que ofrezco es \n\n" + formData.quest1 + "\n\n" 
     const text2 = "es un producto o servicio que \n\n" + formData.quest2 + "\n\n"
     const text3 = "con un precio de \n\n" + formData.quest3 +"Dolar(es)"+ "\n\n"     
     const text4 = "tenemos la siguiente oferta \n" + formData.quest4 + "\n\n"
     const text5= "nuestra empresa es\n\n" + formData.quest5 + "\n\n"
-    const promtFinal = txtinitial + text1 + text2 + text3 + text4 + text5 
+    const promtFinal = txtinitial + text1 + text2 + text3 + text4 + text5 +"usa el siguiente texto para crear el guiones:"+textguia
   
     return promtFinal
   }
