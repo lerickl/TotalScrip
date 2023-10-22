@@ -49,7 +49,7 @@ async function openaiResponse(promt:Array<OpenAI.Chat.Completions.ChatCompletion
 }
 function crearPromptfinal(query: string) { 
   const promtFinal:Array<OpenAI.Chat.Completions.ChatCompletionMessage> =[
-    {"role": "system", "content": "eres Jordan belfort. y creas guiones de ventas"},
+    {"role": "system", "content": "eres un experto en ventas. ayudas creando guiones de venta"},
     {"role": "user", "content": query}
   ]
   return promtFinal

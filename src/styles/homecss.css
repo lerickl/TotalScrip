@@ -157,7 +157,7 @@
   background: rgba(26, 2, 2, 0.062);
   background: blur(5px);
   z-index: 1;
-   
+  
   border: none;
   height: 100vh;
   backdrop-filter: blur(5px);
@@ -673,4 +673,61 @@ footer div a svg{
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.modalCardEnviar{ 
+ 
+  border-radius: 10px;
+  border:none;
+  background: none;
+  z-index: 1;
+ 
+  
+}
+.modalCardEnviar::backdrop{
+   
+  backdrop-filter: blur(5px);
+}
+.modalEmail{
+  background: white;
+  color: #070201;
+  border-radius: 10px;
+ 
+   
+}
+.modalEmail div { 
+  margin: 1rem;
+  color:black;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.modalEmail  label{
+ font-weight: 400;
+}
+.modalEmail input{
+  color: #070201;
+  background: #f7eeee;
+  border-radius: 10px;
+  padding: 0.5rem;
+  border-color: rgba(19,194,236,1);
+}
+.modalEmail div button{
+  background: rgba(19,194,236,1);
+  border-radius: 10px;
+  padding: 0.5rem;
+  margin: 1rem;
+  color: white;
+  font-weight: 600;
+}
+.modalEmail div button:hover{
+  scale: 1.1;
+}
+.modalEmail div button:active{
+  background: white;
+  color: black;
+}
+.modalEmail h2{
+  width: 90%;
 }
